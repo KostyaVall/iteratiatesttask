@@ -1,5 +1,6 @@
-package org.iteratia.testtask;
+package org.iteratia.testtask.utils;
 
+import org.iteratia.testtask.model.Currency;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -20,15 +21,15 @@ public class AdvancedXMLHandler extends DefaultHandler {
     private double value;
     private String lastElementName;
     private Date date;
-    private static List<Currency> currencies = new ArrayList<>();
+    private static final List<Currency> currencies = new ArrayList<>();
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         lastElementName = qName;
         if (qName.equals("ValCurs")) {
             if (attributes != null) {
                 String strDate = attributes.getValue(0);
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.mm.yyyy", Locale.forLanguageTag("russia"));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.forLanguageTag("russia"));
                 try {
                     date = simpleDateFormat.parse(strDate);
                 } catch (ParseException e) {
@@ -44,7 +45,7 @@ public class AdvancedXMLHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String information = new String(ch, start, length);
 
         information = information.replace("\n", "").trim();
@@ -73,13 +74,23 @@ public class AdvancedXMLHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         if (    (numCode != null && !numCode.isEmpty())
                 && (charCode != null && !charCode.isEmpty())
                 && (nominal > 0)
                 && (name != null && !name.isEmpty())
                 && (value > 0)) {
-            currencies.add(new Currency(id, numCode, charCode, nominal, name, value, date));
+
+            Currency currency = new Currency();
+            currency.setIdCurrency(id);
+            currency.setNumCode(numCode);
+            currency.setCharCode(charCode);
+            currency.setNominal(nominal);
+            currency.setName(name);
+            currency.setValue(value);
+            currency.setDate(date);
+
+            currencies.add(currency);
             id = null;
             numCode = null;
             charCode = null;
