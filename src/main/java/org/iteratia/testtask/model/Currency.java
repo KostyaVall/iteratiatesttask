@@ -11,7 +11,7 @@ import java.util.Date;
 public class Currency {
     @Id
     @Column(name = "id")
-    private static int id = 1;
+    private Integer id;
 
     @Column(name = "idCurrency")
     private String idCurrency;
@@ -28,15 +28,15 @@ public class Currency {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "value")
+    @Column(name = "valueCurrency")
     private double value;
 
-    @Column(name = "date")
+    @Column(name = "dateCurrency")
     private Date date;
 
-    public Currency() {
-        id++;
-    }
+//    public Currency() {
+//        id++;
+//    }
 //    public Currency(String id, String numCode, String charCode, int nominal, String name, double value, Date date) {
 //        this.id = id;
 //        this.numCode = numCode;
