@@ -15,9 +15,9 @@ public class CurrencyServiceImpl implements CurrencyService {
     private CurrencyRepository currencyRepository;
 
     @Override
-    public Currency read(Date data, String idCurrency) {
+    public Currency read(Date date, String numCode) {
 
-        List<Currency> currencies = currencyRepository.findAll(); //currencyRepository.findCurrencyByDateAndIdCurrency(data, idCurrency);
+        List<Currency> currencies = currencyRepository.findCurrencyByDateAndNumCode(date, numCode);
         if (currencies.isEmpty()) {
             currencies = Utils.getCurrency();
             for(Currency currency : currencies) {

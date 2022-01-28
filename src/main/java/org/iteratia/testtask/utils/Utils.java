@@ -10,7 +10,10 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Utils {
@@ -20,7 +23,11 @@ public class Utils {
         List<Currency> currencies = new ArrayList<>();
 
         try {
-            URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp");
+            Calendar calendar = new GregorianCalendar();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String dateFormat = simpleDateFormat.format(calendar.getTime());
+
+            URL url = new URL("http://www.cbr.ru/scripts/XML_daily.asp?date_req=" + dateFormat);
             InputStream inputStream = url.openStream();
             InputStreamReader input = new InputStreamReader(inputStream, "windows-1251");
             BufferedReader bufferedReader = new BufferedReader(input);

@@ -7,5 +7,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
-    List<Currency> findCurrencyByDateAndIdCurrency (Date date, String idCurrency);
+    List<Currency> findCurrencyByDateAndNumCode (Date date, String numCode);
 }

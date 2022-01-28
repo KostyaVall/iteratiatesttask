@@ -1,9 +1,6 @@
 package org.iteratia.testtask.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -13,13 +10,15 @@ public class Currency {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "idCurrency")
+    private static Integer idTmp = 0;
+
+    @Column(name = "idcurrency")
     private String idCurrency;
 
-    @Column(name = "numCode")
+    @Column(name = "numcode")
     private String numCode;
 
-    @Column(name = "charCode")
+    @Column(name = "charcode")
     private String charCode;
 
     @Column(name = "nominal")
@@ -28,24 +27,16 @@ public class Currency {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "valueCurrency")
+    @Column(name = "valuecurrency")
     private double value;
 
-    @Column(name = "dateCurrency")
+    @Column(name = "datecurrency")
     private Date date;
 
-//    public Currency() {
-//        id++;
-//    }
-//    public Currency(String id, String numCode, String charCode, int nominal, String name, double value, Date date) {
-//        this.id = id;
-//        this.numCode = numCode;
-//        this.charCode = charCode;
-//        this.nominal = nominal;
-//        this.name = name;
-//        this.value = value;
-//        this.date = date;
-//    }
+    public Currency() {
+        idTmp++;
+        this.id = idTmp;
+    }
 
     public int getId() {
         return id;
