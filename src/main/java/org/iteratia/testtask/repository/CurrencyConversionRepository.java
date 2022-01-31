@@ -7,5 +7,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface CurrencyConversionRepository extends JpaRepository<CurrencyConversion, Integer> {
-    List<CurrencyConversion> findCurrencyConversionByNumCodeFromAndNumCodeToDateFromGreaterThan (Date dateFrom, String numCodeFrom, String numCodeTo);
+    List<CurrencyConversion> findCurrencyConversionByNumCodeFromAndNumCodeTo (String numCodeFrom, String numCodeTo);
 }

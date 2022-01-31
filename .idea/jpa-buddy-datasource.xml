@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="efbbbacb-4204-47d7-b85b-11b23c4e444c" name="iteratiatesttask" url="jdbc:postgresql://localhost:5432/iteratia_db" driverClass="org.postgresql.Driver" />
+    </data-sources>
+  </component>
+</project>
