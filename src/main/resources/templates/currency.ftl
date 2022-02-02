@@ -33,7 +33,7 @@
             </select>
             <p> = </p>
             <p>Value: ${sumValueTo}  </p>
-            <input type="submit" value="read" />
+            <input type="submit" value="Convert" />
         </form>
     </p>
     <p>sumValueFromSum: ${sumValueFromSum}  sumValueToSum: ${sumValueToSum} conversionValueAvg: ${conversionValueAvg}</p>
