@@ -15,7 +15,7 @@
      <div class="panel-heading">
        <h2>Home Page</h2>
      </div>
-         <a href="read">Show Currency</a>
+         <a href="initVariables">Show Currency converter</a>
          </div>
         </div>
     </body>

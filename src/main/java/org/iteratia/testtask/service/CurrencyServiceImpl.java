@@ -6,6 +6,7 @@ import org.iteratia.testtask.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,17 +16,40 @@ public class CurrencyServiceImpl implements CurrencyService {
     private CurrencyRepository currencyRepository;
 
     @Override
-    public Currency read(Date date, String numCode) {
+    public Currency read(Date date, String charCode) {
 
-        List<Currency> currencies = currencyRepository.findCurrencyByDateAndNumCode(date, numCode);
+        List<Currency> currencies = currencyRepository.findCurrencyByDateAndCharCode(date, charCode);
         if (currencies.isEmpty()) {
             currencies = Utils.getCurrency();
             for(Currency currency : currencies) {
                 create(currency);
             }
         }
+        currencies.stream().filter(x -> x.getCharCode().equals(charCode));
         currencies.sort(Currency::compareToDate);
         return currencies.get(currencies.size() - 1);
+    }
+
+    @Override
+    public List<String> read(Date date, boolean initVariables) {
+
+        List<Currency> currencies = new ArrayList<>(34);
+        if(!initVariables) {
+            currencies = currencyRepository.findCurrencyByDate(date);
+        }
+        if (currencies.isEmpty()) {
+            currencies = Utils.getCurrency();
+            for(Currency currency : currencies) {
+                create(currency);
+            }
+        }
+        List<String> charCodes = new ArrayList<>();
+
+        for (Currency a : currencies) {
+            charCodes.add(a.getCharCode());
+        }
+        charCodes.sort(String::compareTo);
+        return charCodes;
     }
 
     @Override

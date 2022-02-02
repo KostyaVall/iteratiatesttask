@@ -42,6 +42,10 @@ public class Currency {
         return id;
     }
 
+    public String getIdCurrency() {
+        return idCurrency;
+    }
+
     public String getNumCode() {
         return numCode;
     }

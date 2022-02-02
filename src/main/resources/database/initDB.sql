@@ -26,5 +26,7 @@ CREATE TABLE IF NOT EXISTS currencyconversion
    nominalto   INTEGER,
    nameto CHAR(50),
    valueto DOUBLE PRECISION,
-   conversionvalue DOUBLE PRECISION
+   conversionvalue DOUBLE PRECISION,
+   sumvaluefrom DOUBLE PRECISION,
+   sumvalueto DOUBLE PRECISION
 );

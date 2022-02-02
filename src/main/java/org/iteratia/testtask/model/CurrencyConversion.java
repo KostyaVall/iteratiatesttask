@@ -55,7 +55,29 @@ public class CurrencyConversion {
     private Date date;
 
     @Column(name = "conversionvalue")
-    private Date conversionValue;
+    private double conversionValue;
+
+    @Column(name = "sumvalueto")
+    private double sumValueTo;
+
+    @Column(name = "sumvaluefrom")
+    private double sumValueFrom;
+
+    public double getSumValueTo() {
+        return sumValueTo;
+    }
+
+    public void setSumValueTo(double sumValueTo) {
+        this.sumValueTo = sumValueTo;
+    }
+
+    public double getSumValueFrom() {
+        return sumValueFrom;
+    }
+
+    public void setSumValueFrom(double sumValueFrom) {
+        this.sumValueFrom = sumValueFrom;
+    }
 
     public CurrencyConversion() {
         idTmp++;
@@ -118,7 +140,7 @@ public class CurrencyConversion {
         return date;
     }
 
-    public Date getConversionValue() {
+    public double getConversionValue() {
         return conversionValue;
     }
 
@@ -174,7 +196,7 @@ public class CurrencyConversion {
         this.date = date;
     }
 
-    public void setConversionValue(Date conversionValue) {
+    public void setConversionValue(double conversionValue) {
         this.conversionValue = conversionValue;
     }
 }
