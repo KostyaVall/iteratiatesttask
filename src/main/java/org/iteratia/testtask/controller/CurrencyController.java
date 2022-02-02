@@ -29,17 +29,24 @@ public class CurrencyController {
         this.currencyConversionService = currencyConversionService;
     }
 
+    //начальная страница
     @GetMapping("/")
     public String index(Model model) {
 
         return "index";
     }
 
+    //из начальной страницы при переходе на основную страницу определяем нужные переменные для работы приложения
     @GetMapping("/initVariables")
     public String initVariables(Model model) {
 
+        //на текущую дату получаем список валют, для вывода на страницу, чтобы пользователю было удобно работать
+        // и для исключения возможных ошибок при вводе символьного кода валют
         Calendar calendar = new GregorianCalendar();
         charCodes = currencyService.read(new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).getTime(), true);
+
+        //через атрибуты передаем значения параметров
+        //на данном этапе заполняем только всплывающие списки
         model.addAttribute("charCodes", charCodes);
 
         model.addAttribute("currencies", new ArrayList<CurrencyConversion>());
@@ -50,17 +57,27 @@ public class CurrencyController {
         return "currency";
     }
 
+    //основной метод работы приложения
+    //получаем данные введенные пользователем для конвертации, конвертируем указанную сумму, получаем историю,
+    //вычисляем требуемые переменные для отображения истории
+    //блок try{} catch{} используется для сохранения работы программы при ошибках, например в поле для указания суммы были введены некорректные данные
+    //строка которую нельзя конвертировать в double
     @RequestMapping(value = "/read", method = RequestMethod.GET)
     public String read(@RequestParam(defaultValue = "") String currencyFrom, @RequestParam(defaultValue = "") String valueFrom, @RequestParam(defaultValue = "") String currencyTo, Model model) {
 
         try {
+            //получаем согласно запрошенным данным курсы валют для конвертации
             Calendar calendar = new GregorianCalendar();
             Currency currencyCurrencyFrom = currencyService.read(new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).getTime(), currencyFrom);
             Currency currencyCurrencyTo = currencyService.read(new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).getTime(), currencyTo);
 
+            //конвертированная сумма
             double sumValueTo = currencyCurrencyFrom.getValue() * Double.valueOf(valueFrom) / currencyCurrencyFrom.getNominal() / currencyCurrencyTo.getValue() * currencyCurrencyTo.getNominal();
+
+            //курс, по которому прошла конвертация
             double conversionValue = sumValueTo / Double.valueOf(valueFrom);
 
+            //заполняем и сохраняем данные для истории конвертации
             CurrencyConversion currencyConversion = new CurrencyConversion();
             currencyConversion.setIdCurrencyFrom(currencyCurrencyFrom.getIdCurrency());
             currencyConversion.setNameFrom(currencyCurrencyFrom.getName());
@@ -84,6 +101,7 @@ public class CurrencyController {
             currencyConversionService.create(currencyConversion);
             List<CurrencyConversion> currencyConversionList = currencyConversionService.read(currencyFrom, currencyTo);
 
+            //заполняем требуемые согласно ТЗ переменные для отображения истории
             double sumValueToSum = 0;
             double sumValueFromSum = 0;
             double conversionValueAvg = 0;
@@ -95,6 +113,7 @@ public class CurrencyController {
             }
             conversionValueAvg = conversionValueAvg / currencyConversionList.size();
 
+            //возвращаем данны для отображения на форме
             model.addAttribute("sumValueToSum", sumValueToSum);
             model.addAttribute("sumValueFromSum", sumValueFromSum);
             model.addAttribute("conversionValueAvg", conversionValueAvg);

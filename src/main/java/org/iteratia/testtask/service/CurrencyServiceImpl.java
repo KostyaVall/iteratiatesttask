@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+//сервис для работы валютой
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
     @Autowired
@@ -18,6 +19,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public Currency read(Date date, String charCode) {
 
+        //получение валюты на заданную дату
         List<Currency> currencies = currencyRepository.findCurrencyByDateAndCharCode(date, charCode);
         if (currencies.isEmpty()) {
             currencies = Utils.getCurrency();
@@ -30,6 +32,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         return currencies.get(currencies.size() - 1);
     }
 
+    //получение списка символьных кодов валют для первоначального заполнения
     @Override
     public List<String> read(Date date, boolean initVariables) {
 
@@ -52,6 +55,7 @@ public class CurrencyServiceImpl implements CurrencyService {
         return charCodes;
     }
 
+    //сохранение информации в БД
     @Override
     public void create(Currency currency) {
         currencyRepository.save(currency);

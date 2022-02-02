@@ -16,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+//получение данных о валюте с сайта ЦБРФ
 public class Utils {
 
     public static List<Currency> getCurrency() {
@@ -53,10 +54,6 @@ public class Utils {
             input.close();
             bufferedReader.close();
 
-//        for (Currency currency : currencies) {
-//            System.out.println("Currency: " + currency.getDate() + " " + currency.getId() + " " + currency.getNumCode() + " "
-//                    + currency.getCharCode() + " " + currency.getNominal() + " " + currency.getName() + " " + currency.getValue());
-//        }
         } catch (IOException| SAXException|ParserConfigurationException e) {
             e.printStackTrace();
         }

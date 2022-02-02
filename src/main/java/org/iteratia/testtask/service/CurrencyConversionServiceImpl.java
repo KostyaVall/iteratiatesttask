@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+//сервис для работы с историей конвертаций валют
 @Service
 public class CurrencyConversionServiceImpl implements CurrencyConversionService {
     @Autowired
@@ -14,7 +15,10 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
 
     @Override
     public List<CurrencyConversion> read(String numCodeFrom, String numCodeTo) {
+        //получение данных из БД согласно отборам
         List<CurrencyConversion> currencyConversionList = currencyConversionRepository.findCurrencyConversionByCharCodeFromAndCharCodeTo(numCodeFrom, numCodeTo);
+
+        //Получение истории за последние 7 дней
         Calendar calendar = new GregorianCalendar();
         Calendar newCalendar = new GregorianCalendar(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         newCalendar.add(Calendar.DAY_OF_MONTH, -7);
@@ -29,6 +33,7 @@ public class CurrencyConversionServiceImpl implements CurrencyConversionService 
         return resultCurrencyConversionList;
     }
 
+    //сохранение истории конвертаций в БД
     @Override
     public void create(CurrencyConversion currencyConversion) {
         currencyConversionRepository.save(currencyConversion);

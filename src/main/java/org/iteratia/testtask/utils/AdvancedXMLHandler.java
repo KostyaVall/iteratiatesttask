@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+//обработка полученных данных по валютам с сайта ЦБРФ
 public class AdvancedXMLHandler extends DefaultHandler {
     private String id;
     private String numCode;

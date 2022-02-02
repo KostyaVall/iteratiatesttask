@@ -6,6 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+//таблица для хранения информации об истории конвертации
 @Entity
 @Table(name = "currencyconversion")
 public class CurrencyConversion {

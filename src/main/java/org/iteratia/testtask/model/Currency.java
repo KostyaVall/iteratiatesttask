@@ -3,6 +3,7 @@ package org.iteratia.testtask.model;
 import javax.persistence.*;
 import java.util.Date;
 
+//таблица для хранения информации, полученной с сайта ЦБРФ
 @Entity
 @Table(name = "currencies")
 public class Currency {

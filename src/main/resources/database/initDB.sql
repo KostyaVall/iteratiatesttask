@@ -1,3 +1,4 @@
+--создаем таблицу Валют (если отсутствует) для загрузки с сайта ЦБРФ
 CREATE TABLE IF NOT EXISTS currencies
 (
    id    SERIAL PRIMARY KEY,
@@ -10,6 +11,7 @@ CREATE TABLE IF NOT EXISTS currencies
    datecurrency TIMESTAMP
 );
 
+--создаем таблицу истории конвертаций (если отсутсвует) для хранения истории конвертаций
 CREATE TABLE IF NOT EXISTS currencyconversion
 (
    id    SERIAL PRIMARY KEY,
